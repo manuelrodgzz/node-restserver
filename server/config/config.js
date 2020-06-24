@@ -13,12 +13,15 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
  * BASE DE DATOS
  */
 
+/**Guarde una variable de entorno en heroku llamada MONGO_URL con la url a la db de atlas. Le concateno el 
+ * '&w=majority' porque al ingresar esos caracteres en lina de comandos detecta que w=majority es un nuevo comando.
+ */
 let urlDB;
 
 if (process.env.NODE_ENV === 'dev') {
     urlDB = 'mongodb://localhost:27017/cafe'
 } else {
-    urlDB = 'mongodb+srv://cafe-user:210897mm@cluster0-wgfmj.mongodb.net/cafe?retryWrites=true&w=majority';
+    urlDB = process.env.MONGO_URL + '&w=majority';
 }
 
 process.env.URLDB = urlDB;
