@@ -2,10 +2,11 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const app = express();
 const Usuario = require('../models/usuario');
+const { verificaToken, verificaAdmin_Role } = require('../middlewares/autenticacion');
 const _ = require('underscore');
 
-app.get('/usuario', function(req, res) {
-
+//Para usar un middleware en las rutas debo pasar como segundo parámetro el middleware y como tercero el callback
+app.get('/usuario', verificaToken, function(req, res) {
 
     let desde = req.query.desde || 0 //Desde el registro que indique el usuario o sino desde el primer registro
     desde = Number(desde); //Lo transformamos de string a number
@@ -25,7 +26,7 @@ app.get('/usuario', function(req, res) {
                 })
             }
 
-            Usuario.count({ estado: true /*aquí iría una condición*/ }, (err, conteo) => {
+            Usuario.countDocuments({ estado: true /*aquí iría una condición*/ }, (err, conteo) => {
 
 
                 res.json({
@@ -37,7 +38,7 @@ app.get('/usuario', function(req, res) {
 
         });
 })
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     let body = req.body;
 
@@ -65,7 +66,7 @@ app.post('/usuario', function(req, res) {
         });
     })
 })
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) {
 
     let id = req.params.id;
 
@@ -94,7 +95,7 @@ app.put('/usuario/:id', function(req, res) {
 
 })
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', verificaToken, function(req, res) {
 
     let id = req.params.id;
     let cambiaEstado = {

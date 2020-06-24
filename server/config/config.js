@@ -10,6 +10,19 @@ process.env.PORT = process.env.PORT || 8080
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 /**
+ * VENCIMIENTO TOKEN
+ * (Cree una variable en heroku para que funcione el condicional)
+ */
+
+process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo'
+
+/**
+ * SEED AUTENTICACION
+ * 60 seg, 60 min, 24hrs, 30D
+ */
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+
+/**
  * BASE DE DATOS
  */
 
