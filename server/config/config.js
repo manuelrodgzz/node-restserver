@@ -20,7 +20,7 @@ process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo'
  * SEED AUTENTICACION
  * 60 seg, 60 min, 24hrs, 30D
  */
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+process.env.CADUCIDAD_TOKEN = '48h'
 
 /**
  * BASE DE DATOS
@@ -41,7 +41,8 @@ process.env.URLDB = urlDB;
 
 
 /**
- * Google Client ID
+ * Google Client ID Esto se agregó por si fueramos a cambiar el ID, pero debería se siempre funcionar con el
+ * que da por defecto google
  */
 
  process.env.CLIENT_ID = process.env.CLIENT_ID || '111702688539-q85k6fqtfjotfvj2rtk7mlf4ghbtmibj.apps.googleusercontent.com';
