@@ -15,13 +15,13 @@ app.get('/productos', verificaToken, (req, res) => {
      * paginado
      */
 
-     const desde = req.params.desde;
-     const hasta = req.params.hasta;
+     const desde = req.params.desde || 0;
+     const hasta = req.params.hasta || 10;
 
     Producto.find({})
         .populate('usuario', 'nombre email')
         .populate('categoria', 'descripcion')
-        .skipe(desde)
+        .skip(desde)
         .limit(hasta)
         .exec((err, productosDB) => {
             if(err){
